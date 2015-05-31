@@ -30,19 +30,28 @@ public class texte2excel{
 		int i =0 ;//compteur de ligne, un peu factice, pas très utile.
 		
 		String ligne; //variable pour la lecture de ligne.
+		String ligneAvance; //ligne d'avance pour les tests.
 		
 		//lecture du fichier texte	
 		try{
 			//aucune raison d'echouer, mais ca ne coute rien de le mettre dans le try.
 			InputStream ips=new FileInputStream(fichier); 
 			InputStreamReader ipsr=new InputStreamReader(ips);
-			BufferedReader br=new BufferedReader(ipsr);
+			BufferedReader br=new BufferedReader(ipsr);//buffer de lecture
 			
+			//buffer avec un crand 'avance la gestion de la double colonne
+			InputStream ips2 = new FileInputStream(fichier); 
+			InputStreamReader ipsr2 =new InputStreamReader(ips2);
+			BufferedReader ba=new BufferedReader(ipsr2);//buffer de lecture
+			
+			//prise de l'avance.
+			ligneAvance = ba.readLine();
 			//sortie vers le csv.
 			PrintStream l_out = new PrintStream(new FileOutputStream("src/resultat.csv")); 
 			
 			//parcours ligne après ligne du fichier texte (export.txt)
 			while ((ligne=br.readLine())!=null){
+				ligneAvance = ba.readLine();
 				System.out.println(ligne);// pour avoir un suivi dans la console.
 				
 				//verification que l'on est pas dans l'une des lignes du pied de page facilement suppressible.
@@ -55,15 +64,18 @@ public class texte2excel{
 					if(ligne.equals(" ") ){ // " " => nouveau paragrpahe => nouvelle colonne. ;
 						l_out.print(";"); //marqueur de colonnes en csv.
 					}
-					else if(ligne.equals("ème") ) { //nouvelle ligne en utilisant la particularité de la ligne "ème"
+					else if(ligneAvance != null && ligneAvance.length() > 3 && ligneAvance.substring(0,3).equals("Du ") ) { //nouvelle ligne en utilisant la particularité que la date est toujours apres le nom
 						l_out.println(Integer.toString(i)+";" );//println, nouvelle ligne.
+						l_out.print(ligne+";");
 					}
 					else{ // cas le plus frequent, on continue d'écrire dans la même colonne.
 						l_out.print(ligne);
 					}
-					
+					if(ligneAvance != null && ligneAvance.length() > 3){
+						//System.out.print( ligneAvance.substring(0,3) );
+					}
 				}
-								
+				i++;				
 			}
 			// fin de la boucle de parcours
 			br.close(); //fermetture du fichier.
