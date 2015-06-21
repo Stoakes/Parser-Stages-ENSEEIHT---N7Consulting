@@ -1,33 +1,32 @@
 import java.io.*;
 /**
- * Classe permettant de passer d'un fichier texte (résultat de pdf2texte.java) à un tablea excel.
+ * Classe permettant de passer d'un fichier texte (rÃ©sultat de pdf2texte.java) Ã  un tablea excel.
  * @author Antoine B.
  *
  */
 
 public class texte2excel{
-	
 	/**
 	 * Texte de chaque pied de page.
-	 * Permet de supprimer les textes récurrent qui pollueraient le tableau si on les conservaient.
-	 * Les autres textes tels l'année à l'enseeiht, la filière ne sont pas supprimée car plus difficile 
-	 * à repérer avec certitudes.
-	 * De plus "ème" sert pour la détection de nouvelle ligne.
+	 * Permet de supprimer les textes rÃ©current qui pollueraient le tableau si on les conservaient.
+	 * Les autres textes tels l'annÃ©e Ã  l'enseeiht, la filiÃ¨re ne sont pas supprimÃ©e car plus difficile 
+	 * Ã  repÃ©rer avec certitudes.
+	 * De plus "Ã¨me" sert pour la dÃ©tection de nouvelle ligne.
 	 */
-	private static String ANNEE = "Stages 2013-2014";
-	private static String SERVICE = "Service des stages";
-	private static String DATE = "02/10/2014";
+	//private static String ANNEE = "Stages 2013-2014";
+	//private static String SERVICE = "Service des stages";
+	//private static String DATE = "02/10/2014";
+	private static String fichier ="src/export.txt";// l'adresse d'import du fichier texte (rÃ©sultat de pdf2texte)
+
 
 	
 	/**
-	 * Méthode de traitement.
+	 * MÃ©thode de traitement.
 	 * @param args
 	 */
-	public static void main(String[] args){
-		
-		String fichier ="src/export.txt";// l'adresse d'import du fichier texte (résultat de pdf2texte)
+	public texte2excel(String pathFichierExport,String encodage, String[] parametres){
 
-		int i =0 ;//compteur de ligne, un peu factice, pas très utile.
+		int i =0 ;//compteur de ligne, un peu factice, pas trÃ¨s utile.
 		
 		String ligne; //variable pour la lecture de ligne.
 		String ligneAvance; //ligne d'avance pour les tests.
@@ -46,30 +45,32 @@ public class texte2excel{
 			
 			//prise de l'avance.
 			ligneAvance = ba.readLine();
-			//sortie vers le csv.
-			PrintStream l_out = new PrintStream(new FileOutputStream("src/resultat.csv")); 
+
+			FileOutputStream dest = new FileOutputStream(pathFichierExport);
+		       Writer output = new BufferedWriter(new OutputStreamWriter(dest, encodage));
+			//on marque dans le fichier ou plutot dans le BufferedWriter qui sert comme un tampon(stream)		
 			
-			//parcours ligne après ligne du fichier texte (export.txt)
+			//parcours ligne aprÃ¨s ligne du fichier texte (export.txt)
 			while ((ligne=br.readLine())!=null){
 				ligneAvance = ba.readLine();
 				System.out.println(ligne);// pour avoir un suivi dans la console.
 				
 				//verification que l'on est pas dans l'une des lignes du pied de page facilement suppressible.
-				if (!ligne.contains(ANNEE) && !ligne.contains(SERVICE) && !ligne.contains(DATE) ) {
+				if (!ligne.contains(parametres[0]) && !ligne.contains(parametres[1]) && !ligne.contains(parametres[2]) ) {
 					
 					/* alors on peut la mettre dans le csv.
-					* les champs étant séparés par une ligne contenant uniquement " ",
-					* on peut jouer sur ce critère pour le formatage en colonnes */
+					* les champs ï¿½tant sï¿½parï¿½s par une ligne contenant uniquement " ",
+					* on peut jouer sur ce critï¿½re pour le formatage en colonnes */
 					
 					if(ligne.equals(" ") ){ // " " => nouveau paragrpahe => nouvelle colonne. ;
-						l_out.print(";"); //marqueur de colonnes en csv.
+						output.write(";"); //marqueur de colonnes en csv.
 					}
-					else if(ligneAvance != null && ligneAvance.length() > 3 && ligneAvance.substring(0,3).equals("Du ") ) { //nouvelle ligne en utilisant la particularité que la date est toujours apres le nom
-						l_out.println(Integer.toString(i)+";" );//println, nouvelle ligne.
-						l_out.print(ligne+";");
+					else if(ligneAvance != null && ligneAvance.length() > 3 && ligneAvance.substring(0,3).equals("Du ") ) { //nouvelle ligne en utilisant la particularitï¿½ que la date est toujours apres le nom
+						output.write(Integer.toString(i)+"; \n" );//println, nouvelle ligne.
+						output.write(ligne+";");
 					}
-					else{ // cas le plus frequent, on continue d'écrire dans la même colonne.
-						l_out.print(ligne);
+					else{ // cas le plus frequent, on continue d'ï¿½crire dans la mï¿½me colonne.
+						output.write(ligne);
 					}
 					if(ligneAvance != null && ligneAvance.length() > 3){
 						//System.out.print( ligneAvance.substring(0,3) );
@@ -79,12 +80,12 @@ public class texte2excel{
 			}
 			// fin de la boucle de parcours
 			br.close(); //fermetture du fichier.
-			
+			ba.close();
 			//cloture du csv
 			//on ferme le fichier : 
-			l_out.flush(); 
-			l_out.close(); 
-			l_out=null; 
+			output.flush(); 
+			output.close(); 
+			output=null; 
 		}		
 		catch (Exception e){
 			System.out.println(e.toString());
