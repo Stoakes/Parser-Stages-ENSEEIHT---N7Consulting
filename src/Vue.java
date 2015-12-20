@@ -29,13 +29,13 @@ public final class Vue extends JPanel {
 		this.btnActDecodage = new JButton ("Extraire les données");
 		
 		this.champMotif1 = new JTextField(40);
-		this.champMotif1.setText("Stages 2013-2014");
+		this.champMotif1.setText("INFORMATIQUE");
 		
 		this.champMotif2 = new JTextField(40);
-		this.champMotif2.setText("Service des stages");
+		this.champMotif2.setText("2A");
 		
 		this.champMotif3 = new JTextField(40);
-		this.champMotif3.setText("02/10/2014");
+		this.champMotif3.setText("inutile");
 		
 		this.selectionEncodage = new Selection();
 		
@@ -118,17 +118,6 @@ public final class Vue extends JPanel {
 		contraintesPlacement.anchor = GridBagConstraints.BASELINE;
 		this.add(champMotif2, contraintesPlacement);
 		
-		//champ motif 3
-		contraintesPlacement.gridx = 3;
-		contraintesPlacement.gridy = 3; 
-		contraintesPlacement.fill = GridBagConstraints.HORIZONTAL;
-		contraintesPlacement.gridwidth = GridBagConstraints.REMAINDER;
-		contraintesPlacement.gridheight = 1;
-		contraintesPlacement.insets = new Insets(5,5,5,5);
-		contraintesPlacement.weightx = 20;
-		contraintesPlacement.weighty = 5;
-		contraintesPlacement.anchor = GridBagConstraints.BASELINE;
-		this.add(champMotif3, contraintesPlacement);
 		
 		//bouton de lancement du parsing
 		contraintesPlacement.gridx = 0;

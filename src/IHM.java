@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
+
+
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -73,11 +75,11 @@ public final class IHM {
 			if (vue.champCheminFichier.getText().length()!=0) {
 				try {
 					pdf2texte pdfParser = new pdf2texte(vue.champCheminFichier.getText());
-					
+					pdfParser.toString();
 					//constituion du tableau des motis récuurents a supprimer
-					String[] parametres = {vue.champMotif1.getText(),vue.champMotif2.getText(),vue.champMotif3.getText()};
-					texte2excel texteParser = new texte2excel(vue.champCheminFichier.getText()+".csv", vue.selectionEncodage.chaineVersEncodage(), parametres);
-					
+					String[] parametres = {vue.champMotif1.getText(),vue.champMotif2.getText()};
+					texte2excel texteParser = new texte2excel(vue.champCheminFichier.getText()+".txt",vue.champCheminFichier.getText()+".csv", vue.selectionEncodage.chaineVersEncodage(), parametres);
+					texteParser.toString();
 					//signalons que l'operation est terminée.
 					vue.champCheminFichier.setText("Tableau disponible dans le dossier du fichier source.");
 				}
