@@ -1,6 +1,6 @@
 ##PARSER STAGES ENSEEIHT
 
-Un petit parser java pour passer des PDF fournit par le service des stages (http://intran7.enseeiht.fr/fr/scolarite/stage/recherche-de-stage.html) à un tableau excel exploitable pour du ciblage Dev' Co à N7 Consulting.
+Un petit parser java pour passer des PDF fournit par le service des stages à un tableau excel exploitable pour du ciblage Dev' Co à N7 Consulting.
 
 #Initialisation
 - Compilez les sources ayant ajouté itext/itextpdf-5.5.6.jar au buildpath de votre projet.
