@@ -1,20 +1,14 @@
-##PARSER STAGES ENSEEIHT - N7CONSULTING
+##PARSER STAGES ENSEEIHT
 
-Un petit parser java pour passer des PDF fournit par le service des stages (http://intran7.enseeiht.fr/fr/scolarite/stage/recherche-de-stage.html) ‡ un tableau excel exploitable pour du ciblage Dev' Co ‡ N7 Consulting
+Un petit parser java pour passer des PDF fournit par le service des stages (http://intran7.enseeiht.fr/fr/scolarite/stage/recherche-de-stage.html) √† un tableau excel exploitable pour du ciblage Dev' Co √† N7 Consulting.
 
-#Imitialisation
-- Compilez en bytecode en ayant ajoutÈ itext/itextpdf-5.5.6.jar au buildpath de votre projet.
+#Initialisation
+- Compilez les sources ayant ajout√© itext/itextpdf-5.5.6.jar au buildpath de votre projet.
 
 #Utilisation
 
-- DÈposez un fichier pdf dans le dossier /src
-- Entrez son adresse relative dans  pdf2texte.java:PREFACE.
-- Compilez puis executez pdf2texte.java
-- Modifiez les 3 constantes au dÈbut texte2excel.java pour supprimer les motifs de texte rÈcurrent facilement suppressible
-- Compilez puis executez texte2excel.java
-- Votre tableau se trouve dans resultat.csv
-- Supprimez les lignes ne vous interessant pas.
-
+- Lancez le .jar r√©sultant de la compilation et suivez les instructions d√©crites sur l'interface graphique. Le r√©sultat du parsing sera export√© dans le m√™me dossier que le fichier source sous la form d'un fichier .csv
+- 
 #Note
 
-Pour des raisons de vie privÈe, je ne mets pas de fichier d'exemple pour tester le parseur. Allez vous fournir sur l'intran7 : http://intran7.enseeiht.fr/fr/scolarite/stage/recherche-de-stage.html
+Pour des raisons de vie priv√©e, il n'y a pas de fichiers de test fourni avec ces sources. Vous pourrez en trouver sur l'intran7 : http://intran7.enseeiht.fr/fr/scolarite/stage/recherche-de-stage.html
